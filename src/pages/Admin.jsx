@@ -1,7 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import TopBar from "../components/TopBar";
 import "../styles/styleAdmin.css";
-import RegistrarUsuario from "../components/RegistrarUsuario";
 
 function Admin() {
   return (
@@ -11,10 +10,12 @@ function Admin() {
       <div className="main-content">
         <TopBar />
 
-        <RegistrarUsuario />
+        <h1>Panel de Administración</h1>
       </div>
     </div>
   );
 }
+
+
 
 export default Admin;

@@ -46,7 +46,8 @@ function RegistrarUsuario() {
 
     const response = await registrarUsuario(datos);
 
-    console.log("Respuesta PHP:", response);
+    console.log("Tipo:", typeof response);
+    console.log(response);
 
     alert(response.Message);
   };

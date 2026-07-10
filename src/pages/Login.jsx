@@ -13,13 +13,18 @@ const navigate = useNavigate();
 
     const response = await login(usuario, password);
 
-    console.log("Respuesta del servidor:", response);
+      console.log(response);
+      alert(JSON.stringify(response));
 
     if (response.Status === "Success") {
 
         console.log("Rol:", response.Data.rol);
         
+      alert("Voy a navegar");
+
       navigate("/admin");
+
+      alert("Ya navegué");
       
 
       console.log("Datos usuario:", response.Data);
