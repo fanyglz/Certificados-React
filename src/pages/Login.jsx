@@ -18,6 +18,11 @@ const navigate = useNavigate();
 
     if (response.Status === "Success") {
 
+      localStorage.setItem(
+        "usuario",
+        JSON.stringify(response.Data)
+    );
+    
         console.log("Rol:", response.Data.rol);
         
       alert("Voy a navegar");
