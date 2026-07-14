@@ -26,6 +26,6 @@ export const obtenerSelect = (tabla) => {
 };
 
 export const obtenerCertificados = () => {
-  // Como es un GET simple para traer todo, no necesitamos pasar FormData
+
   return axios.get(`${API}/listar_certificados.php`); 
-};
+};  

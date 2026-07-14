@@ -46,9 +46,12 @@ function Admin() {
           </div>
         )}
 
+        {/* Busca donde tenías vista === "imprimir" y cámbialo por esto */}
         {vista === "imprimir" && (
-          <h1>Imprimir Certificados</h1>
-        )}
+          <div className="bg-white p-3 rounded text-dark">
+          <ImprimirCertificados />
+          </div>
+)}
       </div>
     </div>
   );
