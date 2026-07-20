@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import TopBar from "../components/TopBar";
-import RegistrarUsuario from "../components/RegistrarUsuario";
 import "../styles/styleAdmin.css";
-import RegistrarPaciente from "../components/RegistrarPaciente";
-import GestionUsuarios from "../components/GestionUsuarios";
-import CrearCertificado from "../components/CrearCertificado"; 
-import ImprimirCertificados from "../components/ImprimirCertificados";
+
+import RegistrarUsuario from "./RegistrarUsuario";
+import RegistrarPaciente from "./RegistrarPaciente";
+import GestionUsuarios from "./GestionUsuarios";
+import CrearCertificado from "./CrearCertificado";
+import ImprimirCertificados from "./ImprimirCertificados";
 
 function Admin() {
   const [vista, setVista] = useState("inicio");
@@ -38,6 +39,8 @@ function Admin() {
         {vista === "usuarios" && <RegistrarUsuario />}
 
         {vista === "gestionar" && <GestionUsuarios />}
+
+        {vista === "pacientes" && <RegistrarPaciente />}
 
         {/* 2. RENDERIZAMOS TU COMPONENTE PASÁNDOLE EL ID */}
         {vista === "certificados" && (
