@@ -62,13 +62,13 @@ function Login() {
       objectFit: 'contain'
     },
     h1: {
-      color: '#002f6c',
+      color: '#000000',
       fontSize: '24px',
       fontWeight: '700',
       margin: '0 0 8px 0'
     },
     subtitle: {
-      color: '#708090',
+      color: '#ffffff',
       fontSize: '14px',
       lineHeight: '1.5',
       margin: '0 0 30px 0'
@@ -81,7 +81,7 @@ function Login() {
     },
     label: {
       display: 'block',
-      color: '#6c7a89',
+      color: '#000000',
       fontSize: '11px',
       fontWeight: '700',
       textTransform: 'uppercase',
@@ -149,7 +149,7 @@ function Login() {
     },
     copyrightContainer: {
       marginTop: '35px',
-      color: '#9aa0a6',
+      color: '#ffffff',
       fontSize: '12px',
       lineHeight: '1.6'
     },
@@ -174,10 +174,9 @@ function Login() {
 
         {/* ENCABEZADOS TEXTUALES */}
         <div>
-          <h1 style={styles.h1}>Certificados Medicos</h1>
+          <h1 style={styles.h1}>Certificados Medícos</h1>
           <p style={styles.subtitle}>
-            Sistema de Gestión - Certificados Medicos<br />
-            Cruz Roja Mexicana
+            Sistema de Gestión - Certificados Medícos<br />
           </p>
         </div>
 

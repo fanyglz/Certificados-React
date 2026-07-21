@@ -1,6 +1,4 @@
 import { useState } from "react";
-import Sidebar from "../components/Sidebar";
-import TopBar from "../components/TopBar";
 import "../styles/styleAdmin.css";
 
 import RegistrarUsuario from "./RegistrarUsuario";
@@ -10,51 +8,30 @@ import CrearCertificado from "./CrearCertificado";
 import ImprimirCertificados from "./ImprimirCertificados";
 
 function Admin() {
-  const [vista, setVista] = useState("inicio");
-  
-  // Guardamos temporalmente un ID de paciente para las pruebas del módulo 1 y 2
+  // Estado provisional para pruebas
   const [idPacienteSeleccionado, setIdPacienteSeleccionado] = useState(1); 
 
   return (
-    <div className="dashboard-container">
-      <Sidebar setVista={setVista} />
-
-      <div className="main-content">
-        {/* <TopBar /> */}
-
-        {vista === "inicio" && (
-          <div
-            style={{
-              background: "white",
-              color: "black",
-              padding: "20px",
-              border: "2px solid red"
-            }}
-          >
-            <h1>Panel de Administración</h1>
-            <p>Si ves este cuadro, el problema es el CSS.</p>
-          </div>
-        )}
-
-        {vista === "usuarios" && <RegistrarUsuario />}
-
-        {vista === "gestionar" && <GestionUsuarios />}
-
-        {vista === "pacientes" && <RegistrarPaciente />}
-
-        {/* 2. RENDERIZAMOS TU COMPONENTE PASÁNDOLE EL ID */}
-        {vista === "certificados" && (
-          <div className="bg-white p-3 rounded text-dark"> 
-            <CrearCertificado idPaciente={idPacienteSeleccionado} />
-          </div>
-        )}
-
-        {/* Busca donde tenías vista === "imprimir" y cámbialo por esto */}
-        {vista === "imprimir" && (
-          <div className="bg-white p-3 rounded text-dark">
-          <ImprimirCertificados />
-          </div>
-)}
+    <div style={{ width: "100%", padding: "10px", boxSizing: "border-box" }}>
+      {/* 
+        Módulo de Inicio / Bienvenido
+      */}
+      <div
+        style={{
+          background: "white",
+          color: "#1E293B",
+          padding: "24px",
+          borderRadius: "12px",
+          border: "1px solid #E2E8F0",
+          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
+        }}
+      >
+        <h1 style={{ margin: 0, fontSize: "24px", color: "#D32F2F" }}>
+          Panel de Administración
+        </h1>
+        <p style={{ marginTop: "8px", color: "#64748B" }}>
+          Bienvenido al sistema CRM de Cruz Roja. Selecciona una opción del menú lateral para comenzar.
+        </p>
       </div>
     </div>
   );
