@@ -1,25 +1,50 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services/authService";
+import { login as loginService } from "../services/authService";
+import { useAuth } from "../context/AuthContext";
+import { ROLES } from "../constants/roles";
 
 function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
   const [mostrarPassword, setMostrarPassword] = useState(false);
   const [cargando, setCargando] = useState(false);
 
+  // 🔴 FUNCIÓN ÚNICA DE LOGIN
   const handleLogin = async (e) => {
     e.preventDefault();
+    console.log("Intentando iniciar sesión con:", usuario);
     setCargando(true);
 
     try {
-      const response = await login(usuario, password);
+      const response = await loginService(usuario, password);
+      console.log("Respuesta del servidor:", response);
 
-      if (response.Status === "Success") {
-        localStorage.setItem("usuario", JSON.stringify(response.Data));
-        navigate("/admin");
+      if (response.Status === "Success" || response.Status === "success") {
+        // Asignamos un valor por defecto seguro para el nombre y formateamos el rol
+        const datosUsuario = {
+          id: response.Data?.id_login,
+          nombre: response.Data?.nombre || usuario.split('@')[0] || "Usuario",
+          rol: String(response.Data?.rol ?? "").trim(),
+          token: response.Data?.token
+        };
+
+        // Guardamos en Contexto y LocalStorage
+        login(datosUsuario);
+
+        const rolActual = datosUsuario.rol;
+
+        // Redirección directa
+        if (rolActual === String(ROLES.MEDICO) || rolActual === "1") {
+          navigate("/medico/crear-certificado", { replace: true });
+        } else {
+          // Roles 0 o 3 van al dashboard de Administración
+          navigate("/admin", { replace: true });
+        }
+
       } else {
         alert(response.Message || "Credenciales incorrectas");
       }
@@ -31,7 +56,6 @@ function Login() {
     }
   };
 
-  // Diccionario de estilos inline idénticos a la interfaz de tu imagen
   const styles = {
     wrapper: {
       display: 'flex',
@@ -68,7 +92,7 @@ function Login() {
       margin: '0 0 8px 0'
     },
     subtitle: {
-      color: '#ffffff',
+      color: '#666666',
       fontSize: '14px',
       lineHeight: '1.5',
       margin: '0 0 30px 0'
@@ -102,8 +126,7 @@ function Login() {
       color: '#333333',
       outline: 'none',
       backgroundColor: '#ffffff',
-      boxSizing: 'border-box',
-      transition: 'border-color 0.2s'
+      boxSizing: 'border-box'
     },
     iconLeft: {
       position: 'absolute',
@@ -134,8 +157,7 @@ function Login() {
       letterSpacing: '0.5px',
       cursor: 'pointer',
       marginTop: '10px',
-      boxShadow: '0 4px 12px rgba(213, 0, 0, 0.2), inset 0 -2px 0 rgba(0,0,0,0.1)',
-      transition: 'background-color 0.2s'
+      boxShadow: '0 4px 12px rgba(213, 0, 0, 0.2)'
     },
     forgotLink: {
       display: 'block',
@@ -149,7 +171,7 @@ function Login() {
     },
     copyrightContainer: {
       marginTop: '35px',
-      color: '#ffffff',
+      color: '#888888',
       fontSize: '12px',
       lineHeight: '1.6'
     },
@@ -174,9 +196,9 @@ function Login() {
 
         {/* ENCABEZADOS TEXTUALES */}
         <div>
-          <h1 style={styles.h1}>Certificados Medícos</h1>
+          <h1 style={styles.h1}>Certificados Médicos</h1>
           <p style={styles.subtitle}>
-            Sistema de Gestión - Certificados Medícos<br />
+            Sistema de Gestión - Certificados Médicos
           </p>
         </div>
 
@@ -231,7 +253,6 @@ function Login() {
                 onChange={(e) => setMostrarPassword(e.target.checked)}
               />
               
-              {/* OJO PARA MOSTRAR/OCULTAR CONTRASEÑA */}
               <label htmlFor="toggle_pwd" style={styles.iconRight}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={mostrarPassword ? "#D50000" : "#999"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
